@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.tugasusergithubv2.R
 import com.dicoding.tugasusergithubv2.data.model.UserDetail
@@ -13,12 +14,11 @@ import com.dicoding.tugasusergithubv2.databinding.ActivityDetailBinding
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
-        const val EXTRA_ID = "extra_id"
         const val EXTRA_LOGIN = "extra_login"
-        const val EXTRA_AVATAR = "extra_avatar"
     }
 
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var viewModel: DetailViewModel
     private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,23 +28,30 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         initializeOnClickListener()
         setFavoriteDrawable()
 
-        val login = intent.getStringExtra(EXTRA_LOGIN)
-        val avatarUrl = intent.getStringExtra(EXTRA_AVATAR)
-        binding.apply {
+        val username = intent.getStringExtra(EXTRA_LOGIN) as String
 
-            tvUsername.text = login
-            /*tvLocation.text = item.location
-            tvCompany.text = item.company
-            tvFollowers.text = item.followers.toString()
-            tvFollowing.text = item.following.toString()
-            tvRepositories.text = item.public_repos.toString()*/
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
 
-            Glide.with(this@DetailActivity)
-                .load(avatarUrl)
-                .placeholder(R.drawable.ic_placeholder_avatar)
-                .into(imgAvatar)
-        }
+        viewModel.setProfile(username)
+        viewModel.getProfile().observe(this, {
+            if (it != null) {
+                binding.apply {
 
+                    tvUsername.text = it.login
+                    tvName.text = it.name
+                    tvLocation.text = it.location
+                    tvCompany.text = it.company
+                    tvFollowers.text = it.followers.toString()
+                    tvFollowing.text = it.following.toString()
+                    tvRepositories.text = it.public_repos.toString()
+
+                    Glide.with(this@DetailActivity)
+                        .load(it.avatar_url)
+                        .placeholder(R.drawable.ic_placeholder_avatar)
+                        .into(imgAvatar)
+                }
+            }
+        })
     }
 
     override fun onClick(v: View?) {
