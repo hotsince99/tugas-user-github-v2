@@ -61,6 +61,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
         // tabs
         val sectionsPagerAdapter = SectionsPagerAdapter(this@DetailActivity)
+        sectionsPagerAdapter.username = username
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
