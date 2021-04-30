@@ -5,16 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.tugasusergithubv2.R
 import com.dicoding.tugasusergithubv2.data.model.UserDetail
 import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.ActivityDetailBinding
+import com.dicoding.tugasusergithubv2.ui.detail.tabs.SectionsPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val EXTRA_LOGIN = "extra_login"
+
+        private val TAB_TITLES = arrayOf("Followers", "Following")
     }
 
     private lateinit var binding: ActivityDetailBinding
@@ -52,6 +58,17 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         })
+
+        // tabs
+        val sectionsPagerAdapter = SectionsPagerAdapter(this@DetailActivity)
+        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = findViewById(R.id.tabs)
+        TabLayoutMediator(tabs, viewPager) { tab: TabLayout.Tab, i: Int ->
+            tab.text = TAB_TITLES[i]
+        }.attach()
+
+        supportActionBar?.elevation = 0f
     }
 
     override fun onClick(v: View?) {
