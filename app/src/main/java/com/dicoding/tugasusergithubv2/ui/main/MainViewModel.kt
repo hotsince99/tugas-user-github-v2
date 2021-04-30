@@ -16,7 +16,7 @@ class MainViewModel : ViewModel() {
 
     val listUsers = MutableLiveData<ArrayList<UserItem>>()
 
-    fun setUsers(query: String){
+    fun setUsers(query: String) {
 
         val listUser = ArrayList<UserItem>()
 

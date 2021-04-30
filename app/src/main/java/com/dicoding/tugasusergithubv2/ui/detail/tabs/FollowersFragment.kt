@@ -1,16 +1,27 @@
 package com.dicoding.tugasusergithubv2.ui.detail.tabs
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tugasusergithubv2.R
+import com.dicoding.tugasusergithubv2.data.model.UserItem
+import com.dicoding.tugasusergithubv2.databinding.FragmentFollowersBinding
+import com.dicoding.tugasusergithubv2.ui.detail.DetailActivity
+import com.dicoding.tugasusergithubv2.ui.main.ListUserAdapter
+import com.dicoding.tugasusergithubv2.ui.main.MainViewModel
 
 class FollowersFragment : Fragment() {
 
-    lateinit var testFollowers: TextView
+    private lateinit var binding: FragmentFollowersBinding
+    private lateinit var adapter: ListUserAdapter
+    private lateinit var viewModel: FollowersViewModel
+
     lateinit var username: String
 
     companion object {
@@ -24,8 +35,6 @@ class FollowersFragment : Fragment() {
             return fragment
         }
     }
-
-    private lateinit var viewModel: FollowersViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +51,61 @@ class FollowersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        testFollowers = view.findViewById(R.id.test_followers)
-        testFollowers.text = username + " followers"
+        binding = FragmentFollowersBinding.bind(view)
+
+        adapter = ListUserAdapter()
+        adapter.notifyDataSetChanged()
+
+        binding.rvFollowers.layoutManager = LinearLayoutManager(activity)
+        binding.rvFollowers.adapter = adapter
+        binding.rvFollowers.setHasFixedSize(true)
+
+        adapter.setCallback(object : ListUserAdapter.Callback {
+            override fun onItemClick(user: UserItem) {
+                showSelectedUser(user)
+            }
+        })
+
+        showProgressBar(true)
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowersViewModel::class.java)
+        viewModel.setFollowers(username)
+        viewModel.getFollowers().observe(viewLifecycleOwner, {
+            if (it != null) {
+                adapter.setData(it)
+                showProgressBar(false)
+            }
+        })
+
+
+    }
+
+    private fun showSelectedUser(user: UserItem) {
+        //Toast.makeText(this, "Kamu memilih ${user.login}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(activity, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_LOGIN, user.login)
+        startActivity(intent)
+    }
+
+    private fun showProgressBar(isEnabled: Boolean) {
+        if (isEnabled) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
