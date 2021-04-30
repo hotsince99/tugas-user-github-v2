@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.tugasusergithubv2.BuildConfig
 import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -20,7 +21,7 @@ class MainViewModel : ViewModel() {
         val listUser = ArrayList<UserItem>()
 
         val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token ${BuildConfig.API_KEY}")
         client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/search/users?q=$query"
         client.get(url, object : AsyncHttpResponseHandler() {
