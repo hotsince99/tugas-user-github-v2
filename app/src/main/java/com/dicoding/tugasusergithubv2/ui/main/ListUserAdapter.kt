@@ -8,7 +8,9 @@ import com.dicoding.tugasusergithubv2.R
 import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.ItemListBinding
 
-class ListUserAdapter(private val listUsers : ArrayList<UserItem>) : RecyclerView.Adapter<ListUserAdapter.ViewHolder>() {
+class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ViewHolder>() {
+
+    private val listUsers = ArrayList<UserItem>()
 
     fun setData(items: ArrayList<UserItem>) {
         listUsers.clear()
