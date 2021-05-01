@@ -1,11 +1,10 @@
-package com.dicoding.tugasusergithubv2.ui.detail.tabs
+package com.dicoding.tugasusergithubv2.ui.detail.tabs.following
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +13,6 @@ import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.FragmentFollowingBinding
 import com.dicoding.tugasusergithubv2.ui.detail.DetailActivity
 import com.dicoding.tugasusergithubv2.ui.main.ListUserAdapter
-import com.dicoding.tugasusergithubv2.ui.main.MainViewModel
 
 class FollowingFragment : Fragment() {
 

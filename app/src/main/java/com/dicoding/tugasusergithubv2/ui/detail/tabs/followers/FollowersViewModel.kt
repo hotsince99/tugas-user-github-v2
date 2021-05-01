@@ -1,4 +1,4 @@
-package com.dicoding.tugasusergithubv2.ui.detail.tabs
+package com.dicoding.tugasusergithubv2.ui.detail.tabs.followers
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,7 +10,6 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
-import org.json.JSONObject
 import java.lang.Exception
 
 class FollowersViewModel : ViewModel() {

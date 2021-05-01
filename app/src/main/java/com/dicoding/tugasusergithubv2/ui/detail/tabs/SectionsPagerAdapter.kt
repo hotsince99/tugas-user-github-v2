@@ -3,6 +3,8 @@ package com.dicoding.tugasusergithubv2.ui.detail.tabs
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.dicoding.tugasusergithubv2.ui.detail.tabs.followers.FollowersFragment
+import com.dicoding.tugasusergithubv2.ui.detail.tabs.following.FollowingFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 

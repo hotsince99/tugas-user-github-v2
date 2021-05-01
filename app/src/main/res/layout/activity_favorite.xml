@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.detail.tabs.followers.FollowersFragment">
+    tools:context=".ui.favorite.FavoriteActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_following"
+        android:id="@+id/rv_favorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_list"

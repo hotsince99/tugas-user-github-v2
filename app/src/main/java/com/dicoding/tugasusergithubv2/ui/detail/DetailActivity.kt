@@ -1,5 +1,6 @@
 package com.dicoding.tugasusergithubv2.ui.detail
 
+import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,12 +9,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.tugasusergithubv2.R
+import com.dicoding.tugasusergithubv2.data.local.DatabaseContract
+import com.dicoding.tugasusergithubv2.data.local.FavoriteHelper
+import com.dicoding.tugasusergithubv2.data.local.MappingHelper
 import com.dicoding.tugasusergithubv2.data.model.UserDetail
 import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.ActivityDetailBinding
 import com.dicoding.tugasusergithubv2.ui.detail.tabs.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -25,22 +33,35 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var viewModel: DetailViewModel
+    private lateinit var favoriteHelper: FavoriteHelper
+
     private var isFavorite: Boolean = false
+    private var username = ""
+    private var id: Int = 0
+    private var avatarUrl: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initializeOnClickListener()
-        setFavoriteDrawable()
 
-        val username = intent.getStringExtra(EXTRA_LOGIN) as String
+        username = intent.getStringExtra(EXTRA_LOGIN) as String
+
+        favoriteHelper = FavoriteHelper.getInstance(applicationContext)
+        favoriteHelper.open()
+
+        initializeOnClickListener()
+        getFavoriteStatusFromDB()
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
 
         viewModel.setProfile(username)
         viewModel.getProfile().observe(this, {
             if (it != null) {
+
+                id = it.id
+                avatarUrl = it.avatar_url
+
                 binding.apply {
 
                     tvUsername.text = it.login
@@ -59,6 +80,9 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
+
+
+
         // tabs
         val sectionsPagerAdapter = SectionsPagerAdapter(this@DetailActivity)
         sectionsPagerAdapter.username = username
@@ -70,6 +94,26 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         }.attach()
 
         supportActionBar?.elevation = 0f
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        favoriteHelper.close()
+    }
+
+    private fun getFavoriteStatusFromDB() {
+        GlobalScope.launch(Dispatchers.Main) {
+
+            val deferredFavorite = async(Dispatchers.IO) {
+                val cursor = favoriteHelper.queryByUsername(username)
+                MappingHelper.mapCursorToArrayList(cursor)
+            }
+
+            val favorite = deferredFavorite.await()
+            isFavorite = favorite.size > 0
+            setFavoriteDrawable()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -86,8 +130,27 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun toggleOnOffFavorite() {
-        isFavorite = !isFavorite
-        setFavoriteDrawable()
+
+        //isFavorite = !isFavorite // ganti ke add remove sql
+        if (isFavorite) {
+            // remove from favorite db
+            GlobalScope.launch(Dispatchers.IO) {
+                favoriteHelper.removeFromFavorite(username).toLong()
+            }
+        } else {
+            // add to favorite db
+            GlobalScope.launch(Dispatchers.IO) {
+
+                val values = ContentValues()
+                values.put(DatabaseContract.FavoriteColumns._ID, id)
+                values.put(DatabaseContract.FavoriteColumns.LOGIN, username)
+                values.put(DatabaseContract.FavoriteColumns.AVATAR_URL, avatarUrl)
+
+                favoriteHelper.addToFavorite(values)
+            }
+        }
+
+        getFavoriteStatusFromDB()
     }
 
     private fun setFavoriteDrawable() {
