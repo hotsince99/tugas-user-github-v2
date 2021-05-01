@@ -6,18 +6,24 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.tugasusergithubv2.data.local.FavoriteHelper
 import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.ActivityFavoriteBinding
 import com.dicoding.tugasusergithubv2.databinding.ActivityMainBinding
 import com.dicoding.tugasusergithubv2.ui.detail.DetailActivity
 import com.dicoding.tugasusergithubv2.ui.main.ListUserAdapter
 import com.dicoding.tugasusergithubv2.ui.main.MainViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class FavoriteActivity : AppCompatActivity() {
 
-    /*private lateinit var binding: ActivityFavoriteBinding
+    private lateinit var binding: ActivityFavoriteBinding
     private lateinit var adapter: ListUserAdapter
     private lateinit var viewModel: FavoriteViewModel
+    private lateinit var favoriteHelper: FavoriteHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +32,29 @@ class FavoriteActivity : AppCompatActivity() {
 
         initializeRecyclerView()
         initializeViewModel()
+        initializeFavoriteDatabase()
         showRecyclerList()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        favoriteHelper.close()
+    }
+
+    private fun initializeFavoriteDatabase() {
+
+        GlobalScope.launch(Dispatchers.Main) {
+            favoriteHelper = FavoriteHelper.getInstance(applicationContext)
+            favoriteHelper.open()
+
+            val deferredFavorite = async(Dispatchers.IO) {
+                val cursor = favoriteHelper.queryAll()
+                UserItemMappingHelper.mapCursorToArrayList(cursor)
+            }
+
+            val favoriteList = deferredFavorite.await()
+            viewModel.setUsers(favoriteList)
+        }
     }
 
     private fun initializeRecyclerView() {
@@ -47,7 +75,6 @@ class FavoriteActivity : AppCompatActivity() {
     private fun initializeViewModel() {
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FavoriteViewModel::class.java)
         showProgressBar(true)
-        viewModel.setUsers()
     }
 
     private fun showSelectedUser(user: UserItem) {
@@ -72,6 +99,6 @@ class FavoriteActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
-    }*/
+    }
 
 }
