@@ -14,6 +14,7 @@ import org.json.JSONObject
 class DetailViewModel : ViewModel() {
     val userProfile = MutableLiveData<UserDetail>()
 
+    // profile detail
     fun setProfile(username: String) {
         val client = AsyncHttpClient()
         client.addHeader("Authorization", "token ${BuildConfig.API_KEY}")
@@ -70,4 +71,7 @@ class DetailViewModel : ViewModel() {
     fun getProfile(): LiveData<UserDetail> {
         return userProfile
     }
+
+    // is profile favorite
+
 }

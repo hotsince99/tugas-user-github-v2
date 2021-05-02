@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,8 @@ import com.dicoding.tugasusergithubv2.R
 import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.ActivityMainBinding
 import com.dicoding.tugasusergithubv2.ui.detail.DetailActivity
+import com.dicoding.tugasusergithubv2.ui.favorite.FavoriteActivity
+import com.dicoding.tugasusergithubv2.ui.settings.SettingsActivity
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -61,6 +64,22 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.btn_favorite_users -> {
+                val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+                }
+            R.id.btn_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initializeViewModel() {

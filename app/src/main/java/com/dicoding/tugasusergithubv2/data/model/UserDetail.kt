@@ -1,8 +1,5 @@
 package com.dicoding.tugasusergithubv2.data.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
 class UserDetail(
     var id: Int,
     var login: String,
