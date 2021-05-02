@@ -12,4 +12,9 @@
         android:icon="@drawable/ic_favorite_users"
         android:title="Favorite Users"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/btn_settings"
+        android:icon="@drawable/ic_favorite_users"
+        android:title="Settings"
+        app:showAsAction="never" />
 </menu>

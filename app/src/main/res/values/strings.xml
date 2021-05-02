@@ -41,4 +41,8 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="key_alarm">ALARM</string>
+    <string name="label_alarm">Reminder at 9.00 AM</string>
+    <string name="key_language">LANGUAGE</string>
+    <string name="label_language">Change Language</string>
 </resources>

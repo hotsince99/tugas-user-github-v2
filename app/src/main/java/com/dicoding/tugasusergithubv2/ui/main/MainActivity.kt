@@ -18,6 +18,7 @@ import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.ActivityMainBinding
 import com.dicoding.tugasusergithubv2.ui.detail.DetailActivity
 import com.dicoding.tugasusergithubv2.ui.favorite.FavoriteActivity
+import com.dicoding.tugasusergithubv2.ui.settings.SettingsActivity
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -72,6 +73,10 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, FavoriteActivity::class.java)
                 startActivity(intent)
                 }
+            R.id.btn_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         return super.onOptionsItemSelected(item)

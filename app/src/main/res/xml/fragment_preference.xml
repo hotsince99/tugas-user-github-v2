@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        android:title="@string/label_language"
+        android:key="@string/key_language"
+        app:icon="@drawable/ic_language"
+        app:iconSpaceReserved="true"
+        />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/key_alarm"
+        android:title="@string/label_alarm"
+        app:iconSpaceReserved="true"
+        app:icon="@drawable/ic_notification"/>
+
+</PreferenceScreen>
