@@ -21,12 +21,12 @@ class AlarmReceiver : BroadcastReceiver() {
         private const val TYPE_REPEATING = "RepeatingAlarm"
         private const val EXTRA_MESSAGE = "message"
 
-        private const val ID_REPEATING = 666
-        private const val CHANNEL_ID = "CH_666"
+        private const val ID_REPEATING_ALARM = 47
+        private const val CHANNEL_ID = "CH_47"
         private const val CHANNEL_NAME = "Channel_Alarm"
 
-        private const val TIME = "17:32"
-        private const val MESSAGE = "Ayo buka aplikasi AlarmGua"
+        private const val TIME = "09:00"
+        private const val MESSAGE = "Reminder"
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -50,7 +50,7 @@ class AlarmReceiver : BroadcastReceiver() {
         calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
         calendar.set(Calendar.SECOND, 1)
 
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING_ALARM, intent, 0)
 
         alarmManager.setInexactRepeating(
                 AlarmManager.RTC_WAKEUP,
@@ -66,7 +66,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
 
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING_ALARM, intent, 0)
         pendingIntent.cancel()
 
         // cancel alarm yg ada di alarm manager, cancel ID 101
@@ -94,7 +94,6 @@ class AlarmReceiver : BroadcastReceiver() {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
 
-        // for oreo
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
             channel.enableVibration(true)
@@ -103,6 +102,6 @@ class AlarmReceiver : BroadcastReceiver() {
         }
 
         val notification = builder.build()
-        notificationManagerCompat.notify(ID_REPEATING, notification)
+        notificationManagerCompat.notify(ID_REPEATING_ALARM, notification)
     }
 }
