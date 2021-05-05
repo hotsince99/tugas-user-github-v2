@@ -14,7 +14,6 @@ import org.json.JSONObject
 class DetailViewModel : ViewModel() {
     val userProfile = MutableLiveData<UserDetail>()
 
-    // profile detail
     fun setProfile(username: String) {
         val client = AsyncHttpClient()
         client.addHeader("Authorization", "token ${BuildConfig.API_KEY}")
@@ -57,12 +56,7 @@ class DetailViewModel : ViewModel() {
             }
 
             override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error.message}"
-                }
+                val errorMessage = "$statusCode : ${error.message}"
                 Log.d("Josua", errorMessage)
             }
         })
