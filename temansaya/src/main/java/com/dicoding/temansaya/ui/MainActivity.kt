@@ -1,6 +1,5 @@
-package com.dicoding.temansaya
+package com.dicoding.temansaya.ui
 
-import android.content.Intent
 import android.database.ContentObserver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,8 +9,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.temansaya.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
+import com.dicoding.temansaya.*
+import com.dicoding.temansaya.data.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
+import com.dicoding.temansaya.data.MappingHelper
+import com.dicoding.temansaya.data.UserFavorite
 import com.dicoding.temansaya.databinding.ActivityMainBinding
+import com.dicoding.temansaya.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

@@ -97,7 +97,8 @@ class FavoriteActivity : AppCompatActivity() {
             if (favoriteList.size > 0) {
                 viewModel.setUsers(favoriteList)
             } else {
-                showSnackBarMessage("Tidak ada data saat ini")
+                showSnackBarMessage(getString(R.string.no_data))
+                showProgressBar(false)
             }
 
         }

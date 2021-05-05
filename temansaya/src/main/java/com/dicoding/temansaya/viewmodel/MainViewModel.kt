@@ -1,8 +1,9 @@
-package com.dicoding.temansaya
+package com.dicoding.temansaya.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.temansaya.data.UserFavorite
 
 class MainViewModel : ViewModel() {
 

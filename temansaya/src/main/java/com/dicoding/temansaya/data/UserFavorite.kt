@@ -1,4 +1,4 @@
-package com.dicoding.temansaya
+package com.dicoding.temansaya.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

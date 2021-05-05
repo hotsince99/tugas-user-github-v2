@@ -83,7 +83,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val intent = Intent(context, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 0,intent,0)
 
-        val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(TYPE_REPEATING)
@@ -98,10 +98,10 @@ class AlarmReceiver : BroadcastReceiver() {
             val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
             channel.enableVibration(true)
             builder.setChannelId(CHANNEL_ID)
-            notificationManagerCompat.createNotificationChannel(channel)
+            notificationManager.createNotificationChannel(channel)
         }
 
         val notification = builder.build()
-        notificationManagerCompat.notify(ID_REPEATING_ALARM, notification)
+        notificationManager.notify(ID_REPEATING_ALARM, notification)
     }
 }
