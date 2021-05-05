@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Teman Saya (Consumer App)</string>
+    <string name="you_choose">Kamu memilih</string>
+    <string name="no_data">Tidak ada data pengguna favorit</string>
 </resources>

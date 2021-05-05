@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             if (it != null) {
                 adapter.setData(it)
                 showProgressBar(false)
+                binding.githubImage.visibility = View.GONE
             }
         })
     }
@@ -85,18 +86,18 @@ class MainActivity : AppCompatActivity() {
             if (favoriteList.size > 0) {
                 viewModel.setUsers(favoriteList)
             } else {
-                showSnackBarMessage("Tidak ada data saat ini")
+                showSnackBarMessage()
             }
 
         }
     }
 
-    private fun showSnackBarMessage(message: String) {
-        Snackbar.make(binding.rvFavorite, message, Snackbar.LENGTH_SHORT).show()
+    private fun showSnackBarMessage() {
+        Snackbar.make(binding.rvFavorite, getString(R.string.no_data), Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showSelectedUser(user: UserFavorite) {
-        Toast.makeText(this, "Kamu memilih ${user.login}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.you_choose) + " " + user.login, Toast.LENGTH_SHORT).show()
 
     }
 

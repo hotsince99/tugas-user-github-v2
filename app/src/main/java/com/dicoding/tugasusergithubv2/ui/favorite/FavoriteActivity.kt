@@ -108,7 +108,6 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun showSelectedUser(user: UserItem) {
-        //Toast.makeText(this, "Kamu memilih ${user.login}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this@FavoriteActivity, DetailActivity::class.java)
         intent.putExtra(DetailActivity.EXTRA_LOGIN, user.login)
         startActivity(intent)

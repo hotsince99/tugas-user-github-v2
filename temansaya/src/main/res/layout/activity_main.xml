@@ -25,4 +25,16 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"/>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/github_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/github_hand_drawn"
+        android:visibility="visible"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
