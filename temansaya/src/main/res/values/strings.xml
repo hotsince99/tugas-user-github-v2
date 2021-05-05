@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Friends (Consumer App)</string>
+    <string name="you_choose">You choose</string>
+    <string name="no_data">There is no favorite user</string>
+</resources>

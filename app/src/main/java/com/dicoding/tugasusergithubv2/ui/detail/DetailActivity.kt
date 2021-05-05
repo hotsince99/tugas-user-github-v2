@@ -2,9 +2,9 @@ package com.dicoding.tugasusergithubv2.ui.detail
 
 import android.content.ContentValues
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -12,8 +12,6 @@ import com.dicoding.tugasusergithubv2.R
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract
 import com.dicoding.tugasusergithubv2.data.local.FavoriteHelper
 import com.dicoding.tugasusergithubv2.data.local.MappingHelper
-import com.dicoding.tugasusergithubv2.data.model.UserDetail
-import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.ActivityDetailBinding
 import com.dicoding.tugasusergithubv2.ui.detail.tabs.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
@@ -80,10 +78,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
-
-
-
-        // tabs
         val sectionsPagerAdapter = SectionsPagerAdapter(this@DetailActivity)
         sectionsPagerAdapter.username = username
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
@@ -94,6 +88,11 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         }.attach()
 
         supportActionBar?.elevation = 0f
+    }
+
+    override fun onResume() {
+        super.onResume()
+        supportActionBar?.title = getString(R.string.ktp)
     }
 
     override fun onDestroy() {
@@ -131,14 +130,12 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun toggleOnOffFavorite() {
 
-        //isFavorite = !isFavorite // ganti ke add remove sql
         if (isFavorite) {
-            // remove from favorite db
             GlobalScope.launch(Dispatchers.IO) {
                 favoriteHelper.removeFromFavorite(username).toLong()
             }
         } else {
-            // add to favorite db
+
             GlobalScope.launch(Dispatchers.IO) {
 
                 val values = ContentValues()
@@ -164,7 +161,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private fun shareProfileAddress() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+            putExtra(Intent.EXTRA_TEXT, "https://www.github.com/$username")
             type = "text/plain"
         }
 

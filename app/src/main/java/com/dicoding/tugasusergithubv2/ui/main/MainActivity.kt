@@ -4,11 +4,9 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -19,14 +17,7 @@ import com.dicoding.tugasusergithubv2.databinding.ActivityMainBinding
 import com.dicoding.tugasusergithubv2.ui.detail.DetailActivity
 import com.dicoding.tugasusergithubv2.ui.favorite.FavoriteActivity
 import com.dicoding.tugasusergithubv2.ui.settings.SettingsActivity
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
-import org.json.JSONArray
-import org.json.JSONObject
-import java.lang.Exception
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         showRecyclerList()
     }
 
+    override fun onResume() {
+        super.onResume()
+        supportActionBar?.title = getString(R.string.app_name)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)
 
@@ -56,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchUserFromGitHub(query)
+                binding.githubImage.visibility = View.GONE
                 return true
             }
 
@@ -116,7 +113,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSelectedUser(user: UserItem) {
-        //Toast.makeText(this, "Kamu memilih ${user.login}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this@MainActivity, DetailActivity::class.java)
         intent.putExtra(DetailActivity.EXTRA_LOGIN, user.login)
         startActivity(intent)

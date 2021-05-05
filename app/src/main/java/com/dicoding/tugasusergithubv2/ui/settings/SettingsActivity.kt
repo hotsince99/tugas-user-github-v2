@@ -13,4 +13,10 @@ class SettingsActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.setting_activity, PreferenceFragment()).commit()
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        supportActionBar?.title = getString(R.string.settings)
+    }
 }

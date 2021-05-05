@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tugas User Github V2</string>
+    <string name="key_alarm">ALARM</string>
+    <string name="label_alarm">Pengingat pukul 9.00</string>
+    <string name="key_language">LANGUAGE</string>
+    <string name="label_language">Ganti Bahasa</string>
+    <string name="followers">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="repositories">Repositori</string>
+    <string name="search">Cari</string>
+    <string name="favorite_users">Pengguna Favorit</string>
+    <string name="settings">Pengaturan</string>
+    <string name="ktp">Kartu Tanda Programmer</string>
+    <string name="list_of_favorite_user">Daftar Pengguna Favorit</string>
+    <string name="no_data">Tidak ada data pengguna favorit</string>
+</resources>

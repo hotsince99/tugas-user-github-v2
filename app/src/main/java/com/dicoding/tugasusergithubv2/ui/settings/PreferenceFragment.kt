@@ -42,10 +42,8 @@ class PreferenceFragment : PreferenceFragmentCompat(),
             val isChecked = newValue as? Boolean ?: false
 
             if (isChecked) {
-                // set alarm
                 alarmReceiver.setRepeatingAlarm(requireContext())
             } else {
-                // cancel alarm
                 alarmReceiver.cancelAlarm(requireContext())
             }
             true

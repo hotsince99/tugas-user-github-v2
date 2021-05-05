@@ -1,6 +1,9 @@
 package com.dicoding.tugasusergithubv2.ui.favorite
 
 import android.app.Application
+import android.database.ContentObserver
+import android.os.Handler
+import android.os.HandlerThread
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
