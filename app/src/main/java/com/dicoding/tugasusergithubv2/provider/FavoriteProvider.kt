@@ -2,10 +2,12 @@ package com.dicoding.tugasusergithubv2.provider
 
 import android.content.ContentProvider
 import android.content.ContentValues
+import android.content.Context
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.AUTHORITY
+import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.TABLE_NAME
 import com.dicoding.tugasusergithubv2.data.local.FavoriteHelper
 
@@ -21,26 +23,45 @@ class FavoriteProvider : ContentProvider() {
         }
     }
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
-        return 0
-    }
-
-    override fun getType(uri: Uri): String? {
-        return null
-    }
-
-    override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        return null
-    }
-
     override fun onCreate(): Boolean {
-        return false
+        favoriteHelper = FavoriteHelper.getInstance(context as Context)
+        favoriteHelper.open()
+        return true
     }
 
     override fun query(
         uri: Uri, projection: Array<String>?, selection: String?,
         selectionArgs: Array<String>?, sortOrder: String?
     ): Cursor? {
+        return when (uriMatcher.match(uri)) {
+            URI_CODE -> favoriteHelper.queryAll()
+            else -> null
+        }
+    }
+
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        val added: Long = when (URI_CODE) {
+            uriMatcher.match(uri) -> favoriteHelper.addToFavorite(values)
+            else -> 0
+        }
+
+        context?.contentResolver?.notifyChange(CONTENT_URI, null)
+
+        return Uri.parse("$CONTENT_URI/$added")
+    }
+
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
+        val deleted: Int = when (URI_CODE) {
+            uriMatcher.match(uri) -> favoriteHelper.removeFromFavorite(uri.lastPathSegment.toString())
+            else -> 0
+        }
+
+        context?.contentResolver?.notifyChange(CONTENT_URI, null)
+
+        return deleted
+    }
+
+    override fun getType(uri: Uri): String? {
         return null
     }
 
