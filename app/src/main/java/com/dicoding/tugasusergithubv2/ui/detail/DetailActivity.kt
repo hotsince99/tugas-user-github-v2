@@ -2,6 +2,7 @@ package com.dicoding.tugasusergithubv2.ui.detail
 
 import android.content.ContentValues
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View

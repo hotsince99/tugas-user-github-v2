@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.AUTHORITY
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.TABLE_NAME
@@ -26,6 +27,7 @@ class FavoriteProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         favoriteHelper = FavoriteHelper.getInstance(context as Context)
         favoriteHelper.open()
+        Log.d("Josua", "onCreate() FavoriteProvider")
         return true
     }
 
