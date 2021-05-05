@@ -43,7 +43,7 @@ class FollowingFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_following, container, false)
     }
 
@@ -78,7 +78,7 @@ class FollowingFragment : Fragment() {
     }
 
     private fun showSelectedUser(user: UserItem) {
-        //Toast.makeText(this, "Kamu memilih ${user.login}", Toast.LENGTH_SHORT).show()
+
         val intent = Intent(activity, DetailActivity::class.java)
         intent.putExtra(DetailActivity.EXTRA_LOGIN, user.login)
         startActivity(intent)

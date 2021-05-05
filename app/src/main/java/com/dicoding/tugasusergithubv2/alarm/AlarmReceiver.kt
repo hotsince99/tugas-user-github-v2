@@ -52,7 +52,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
 
-        // set alarm ke dalam alarm manager
         alarmManager.setInexactRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,

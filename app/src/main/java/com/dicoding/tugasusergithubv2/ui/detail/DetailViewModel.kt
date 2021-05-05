@@ -71,7 +71,4 @@ class DetailViewModel : ViewModel() {
     fun getProfile(): LiveData<UserDetail> {
         return userProfile
     }
-
-    // is profile favorite
-
 }
