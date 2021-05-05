@@ -8,7 +8,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.util.Log
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.AUTHORITY
-import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.TABLE_NAME
 import com.dicoding.tugasusergithubv2.data.local.FavoriteHelper
 
@@ -42,25 +41,11 @@ class FavoriteProvider : ContentProvider() {
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        val added: Long = when (URI_CODE) {
-            uriMatcher.match(uri) -> favoriteHelper.addToFavorite(values)
-            else -> 0
-        }
-
-        context?.contentResolver?.notifyChange(CONTENT_URI, null)
-
-        return Uri.parse("$CONTENT_URI/$added")
+        return null
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
-        val deleted: Int = when (URI_CODE) {
-            uriMatcher.match(uri) -> favoriteHelper.removeFromFavorite(uri.lastPathSegment.toString())
-            else -> 0
-        }
-
-        context?.contentResolver?.notifyChange(CONTENT_URI, null)
-
-        return deleted
+        return 0
     }
 
     override fun getType(uri: Uri): String? {
