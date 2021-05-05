@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.tugasusergithubv2.R
 import com.dicoding.tugasusergithubv2.data.local.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.dicoding.tugasusergithubv2.data.model.UserItem
 import com.dicoding.tugasusergithubv2.databinding.ActivityFavoriteBinding
@@ -76,6 +77,11 @@ class FavoriteActivity : AppCompatActivity() {
                 showProgressBar(false)
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        supportActionBar?.title = getString(R.string.list_of_favorite_user)
     }
 
     private fun loadAsync() {

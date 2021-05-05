@@ -90,6 +90,11 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.elevation = 0f
     }
 
+    override fun onResume() {
+        super.onResume()
+        supportActionBar?.title = getString(R.string.ktp)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 

@@ -11,4 +11,6 @@
     <string name="search">Cari</string>
     <string name="favorite_users">Pengguna Favorit</string>
     <string name="settings">Pengaturan</string>
+    <string name="ktp">Kartu Tanda Programmer</string>
+    <string name="list_of_favorite_user">Daftar Pengguna Favorit</string>
 </resources>

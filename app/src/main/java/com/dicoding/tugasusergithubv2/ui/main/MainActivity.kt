@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity() {
         showRecyclerList()
     }
 
+    override fun onResume() {
+        super.onResume()
+        supportActionBar?.title = getString(R.string.app_name)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)
 
